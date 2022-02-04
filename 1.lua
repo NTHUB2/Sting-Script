@@ -1,3 +1,4 @@
+--Loding UI
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("ImageLabel")
 local TextLabel = Instance.new("TextLabel")
@@ -11,7 +12,7 @@ Frame.Parent = ScreenGui
 Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Frame.BackgroundTransparency = 1.000
 Frame.Position = UDim2.new(-0.254758418, 0, -0.37299037, 0)
-Frame.Size = UDim2.new(0, 0, 0, 0)
+Frame.Size = UDim2.new(1000000, 100000, 100000, 100000)
 Frame.Image = "rbxassetid://3570695787"
 Frame.ImageColor3 = Color3.fromRGB(57, 57, 57)
 Frame.ScaleType = Enum.ScaleType.Slice
@@ -24,9 +25,9 @@ TextLabel.BackgroundTransparency = 1.000
 TextLabel.Position = UDim2.new(0.419472903, 0, 0.443729907, 0)
 TextLabel.Size = UDim2.new(0, 219, 0, 70)
 TextLabel.Font = Enum.Font.SpecialElite
-TextLabel.Text = "Night Hub"
+TextLabel.Text = "Night Hub|Name"
 TextLabel.TextColor3 = Color3.fromRGB(100, 0, 255)
 TextLabel.TextSize = 100.000
 TextLabel.TextStrokeTransparency = 0.000
-wait(4)
+wait(2)
 game.CoreGui:FindFirstChild("ScreenGui"):Destroy()
