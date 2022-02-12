@@ -1,7 +1,5 @@
--- Gui to Lua
--- Version: 3.2
 
--- Instances:
+
 
 local PutinStarterGui = Instance.new("ScreenGui")
 local Background = Instance.new("Frame")
@@ -9,7 +7,7 @@ local BackGround = Instance.new("Frame")
 local Loading = Instance.new("Frame")
 local TextLabel = Instance.new("TextLabel")
 
---Properties:
+
 
 PutinStarterGui.Name = "Put in StarterGui"
 PutinStarterGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -53,16 +51,12 @@ TextLabel.TextStrokeColor3 = Color3.fromRGB(0, 6, 93)
 TextLabel.TextStrokeTransparency = 0.700
 TextLabel.TextWrapped = true
 
--- Scripts:
 
-local function VSYMY_fake_script() -- Loading.LocalScript 
+
+local function VSYMY_fake_script()  
 	local script = Instance.new('LocalScript', Loading)
 
-	--([Scripted by CiAxe
-		--([Discord: CiAxe#4286
-			--([Twitter: @axe_ci
-				--([Roblox Profile: CiAxe
-			--([Thank you!])
+
 	
 	
 	local screen = math.random(1,3)
