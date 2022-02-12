@@ -1,6 +1,4 @@
-
-
-
+--{<Loding UI>}--
 local PutinStarterGui = Instance.new("ScreenGui")
 local Background = Instance.new("Frame")
 local BackGround = Instance.new("Frame")
@@ -120,3 +118,4 @@ local function VSYMY_fake_script()
 	script.Parent.Parent.Parent.Visible = false
 end
 coroutine.wrap(VSYMY_fake_script)()
+wait(9.4)
