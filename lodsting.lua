@@ -3,7 +3,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/NTHUB2/Testing/main/g
 -----------------------------------------------------------------------------------------------------------------------------------
 
 --Jailbreak
-loadstring(game:HttpGet("https://raw.githubusercontent.com/NTHUB2/Testing/main/Jailbreak.t.lua"))();
+loadstring(game:HttpGet("https://raw.githubusercontent.com/NTHUB2/Testing/main/Jailbreak.lua"))();
 -----------------------------------------------------------------------------------------------------------------------------------
 
 
