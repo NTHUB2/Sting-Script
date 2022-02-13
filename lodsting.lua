@@ -6,12 +6,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/NTHUB2/Testing/main/g
 loadstring(game:HttpGet("https://raw.githubusercontent.com/NTHUB2/Testing/main/Jailbreak.lua"))();
 -----------------------------------------------------------------------------------------------------------------------------------
 
-
-
+--Simple Spy
+loadstring(game:HttpGet("https://raw.githubusercontent.com/NTHUB2/Testing/main/Spy.lua"))();
 -----------------------------------------------------------------------------------------------------------------------------------
 
-
-
+--Dark Dex
+loadstring(game:HttpGet("https://raw.githubusercontent.com/NTHUB2/Testing/main/aA.LUA"))();
 -----------------------------------------------------------------------------------------------------------------------------------
 
 
