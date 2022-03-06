@@ -1,14 +1,238 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
-local venyx = library.new("Name Here [ By Maximum Hub ]", 5013109572)
+local venyx = library.new("Maximum Hub", 5013109572)
 
 local themes = {
 Background = Color3.fromRGB(24, 24, 24),
 Glow = Color3.fromRGB(0, 0, 0),
 Accent = Color3.fromRGB(10, 10, 10),
 LightContrast = Color3.fromRGB(20, 20, 20),
-DarkContrast = Color3.fromRGB(14, 14, 14),  
+DarkContrast = Color3.fromRGB(14, 14, 14),
 TextColor = Color3.fromRGB(255, 255, 255)
 }
+
+local page = venyx:addPage("Main Menu", 1073830992)
+local Farm = page:addSection("Farm")
+local Function = page:addSection("Function")
+local Confix = page:addSection("Confix")
+
+Farm:addToggle("Auto Farm", nil, function(value)
+    print("Not Working")
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Function:addToggle("Fast Attack", nil, function(value)
+    local Fast = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
+    local CameraShaker = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework.CameraShaker)
+    _G.Name = value
+    game:GetService("RunService").RenderStepped:Connect(function()
+        pcall(function()
+            if _G.Name then
+    Fast.activeController.hitboxMagnitude = 120
+    Fast.activeController.timeToNextAttack = 0.5
+    CameraShaker.CameraShakeInstance.CameraShakeState = {FadingIn = 3, FadingOut = 2, Sustained = 0, Inactive = 1}
+    end
+    end)
+    end)
+end)
+
+
+Confix:addToggle("Auto Buso", nil, function(value)
+
+_G.AutoBuso = value
+while _G.AutoBuso do wait()
+   if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+      local args = {
+         [1] = "Buso"
+      }
+      game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+   end
+end
+
+end)
+
+Confix:addToggle("Auto Observation", nil, function(value)
+
+_G.AutoObservation = value
+   while _G.AutoObservation do
+      wait()
+      if game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
+      else wait(1)
+         VirtualUser:CaptureController()
+         VirtualUser:SetKeyDown('0x65')
+         wait(2)
+         VirtualUser:SetKeyUp('0x65')
+      end
+   end
+
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local i = venyx:addPage("Misc", 23481010)
+local P = i:addSection("Menu")
+local O = i:addSection("Auto")
+
+
+
+
+
+
+
+
+
+
+
+
+local H = venyx:addPage("Player", 7992557358)
+local B = H:addSection("Menu")
+local A = H:addSection("Teleport Player")
+
+B:addToggle("Set", nil,function(value)
+    _G.Set = value
+end)
+
+B:addSlider("Jump", 50, 50, 200, function(value)
+    if _G.Set then
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = value
+    end
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 local page = venyx:addPage("Teleport", 7626871475)
 local Word = page:addSection("World")
@@ -350,3 +574,240 @@ _G.TP = a
    TP(Vector3.new(5158.6318359375, 4.501299858093262, 4028.94677734375), CFrame.new(5158.6318359375, 4.501299858093262, 4028.94677734375))
 end
 end)
+
+
+
+local J = venyx:addPage("Shop", 9006897360)
+local J1 = J:addSection("Menu")
+
+J1:addToggle("Auto Random Fruit", nil, function(value)
+_G.Random = value
+while _G.Random do wait(.5)
+
+local args = {
+    [1] = "Cousin",
+    [2] = "Buy"
+}
+
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+
+end
+end)
+
+
+
+local E = venyx:addPage("Raid - Vision", 7407483146)
+local E1 = E:addSection("Vision")
+local E2 = E:addSection("Raid")
+
+
+
+
+
+
+
+local E1 = venyx:addPage("Stats", 5917153832)
+local E11 = E1:addSection("Menu")
+E11:addToggle("Melee", nil, function(value)
+_G.Melee = value
+while _G.Melee do wait()
+
+local args = {
+    [1] = "AddPoint",
+    [2] = "Melee",
+    [3] = 1
+}
+
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+
+end
+end)
+E11:addToggle("Defense", nil, function(value)
+_G.Defense = value
+while _G.Defense do wait()
+
+local args = {
+    [1] = "AddPoint",
+    [2] = "Defense",
+    [3] = 1
+}
+
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+
+end
+end)
+E11:addToggle("Sword", nil, function(value)
+_G.Sword = value
+while _G.Sword do wait()
+
+local args = {
+    [1] = "AddPoint",
+    [2] = "Sword",
+    [3] = 1
+}
+
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+
+end
+end)
+E11:addToggle("Gun", nil, function(value)
+_G.Gun = value
+while _G.Gun do wait()
+
+local args = {
+    [1] = "AddPoint",
+    [2] = "Gun",
+    [3] = 1
+}
+
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+
+end
+end)
+E11:addToggle("Blox Fruit", nil, function(value)
+_G.Blox_Fruit = value
+while _G.Blox_Fruit do wait()
+
+local args = {
+    [1] = "AddPoint",
+    [2] = "Demon Fruit",
+    [3] = 1
+}
+
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+
+end
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local theme = venyx:addPage("Setting GUI", 6942070576)
+local colors = theme:addSection("Setting")
+
+colors:addKeybind("Toggle Keybind", Enum.KeyCode.RightControl, function()
+venyx:toggle()
+end, function()
+end)
+
+local colors = theme:addSection("Colors")
+for theme, color in pairs(themes) do
+colors:addColorPicker(theme, color, function(color3)
+venyx:setTheme(theme, color3)
+end)
+end
+
+venyx:SelectPage(venyx.pages[1], true)
