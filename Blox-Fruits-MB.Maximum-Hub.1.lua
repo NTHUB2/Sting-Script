@@ -1,17 +1,6 @@
 --Default Color(Look very good tbh)
 getgenv().TextColorChange = Color3.fromRGB(255, 255, 255)
 getgenv().GlowColorChange = Color3.fromRGB(255, 255, 255)
---Teleport Section
-getgenv().CtrlTp = false
-getgenv().CtrlTween = false
---Fruit Section
-getgenv().GetFruits = false
--- Only Bring Fruit In Small Distance 
-getgenv().BringFruit = true
---Will Stop AutoFarming If You Turn On These Two Below
-getgenv().TeleportFruit = false
-getgenv().NaturalFruit = false
-getgenv().AutoBuyRandomFruit = false
 --Loading Game
 repeat wait()
 until game:IsLoaded()
@@ -102,11 +91,6 @@ if not getgenv().AFKDISABLED then
       getgenv().AFKDISABLED = true
    end
 end
---Define getgenv
-getgenv().FlySpeed = 2
-getgenv().FLYING = false
-getgenv().AutoSuperHuman = false
-Fly = false
 --Define getgenv Setting
 getgenv().SilentAimMob = false
 getgenv().SilentAimPlr = false
@@ -122,19 +106,6 @@ getgenv().AutoFarmSafeMode = false
 getgenv().AutoFarmHealthSafeMode = 30
 getgenv().FastAttack = true
 
-getgenv().SkillZ = true
-getgenv().SkillZHold = 0
-getgenv().SkillX = true
-getgenv().SkillXHold = 0
-getgenv().SkillC = true
-getgenv().SkillCHold = 0
-getgenv().SkillV = true
-getgenv().SkillVHold = 0
-getgenv().SkillF = true
-getgenv().SkillFHold = 0
-
-getgenv().SkillZGun = true
-getgenv().SkillXGun = true
 
 
 getgenv().RecommendedSpeed = true
@@ -153,18 +124,6 @@ getgenv().Setting = {
    getgenv().AutoFarmSafeMode ;
    getgenv().AutoFarmHealthSafeMode ;
    getgenv().FastAttack;
-   getgenv().SkillZ ;
-   getgenv().SkillZHold ;
-   getgenv().SkillX ;
-   getgenv().SkillXHold;
-   getgenv().SkillC ;
-   getgenv().SkillCHold ;
-   getgenv().SkillV ;
-   getgenv().SkillVHold ;
-   getgenv().SkillF ;
-   getgenv().SkillFHold ;
-   getgenv().SkillZGun ;
-   getgenv().SkillXGun ;
    getgenv().RecommendedSpeed;
    getgenv().TweenSpeedAutoFarm ;
    getgenv().TweenSpeedQuest;
@@ -366,423 +325,6 @@ function Simulation()
       sethiddenproperty(LP, "SimulationRadius", math.huge)
    end
 end
---KillAura
-function KillAuraF()
-   for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-      if v.Parent and v:FindFirstChild("LowerTorso") and v:FindFirstChild("Head") and v:FindFirstChild("UpperTorso") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
-         Simulation()
-         pcall(function()
-            if (v.HumanoidRootPart.Position - HumanoidRootPart.Position).magnitude < 1000 then
-              v:FindFirstChild("LowerTorso"):Destroy()
-              v:FindFirstChild("UpperTorso"):Destroy()
-              v:FindFirstChild("Head"):Destroy()
-              v:breakJoints()
-              v.Humanoid.Health = 0
-              v.Humanoid.Health =  v.Humanoid.MaxHealth
-              v.Humanoid.Health = 0
-            end
-         end)
-      end
-   end   
-end
-Players = game:GetService("Players")
-speaker = Players.LocalPlayer
-COREGUI = game:GetService("CoreGui")
-function round(num, numDecimalPlaces)--round number look cool
-	local mult = 10^(numDecimalPlaces or 0)
-	return math.floor(num * mult + 0.5) / mult
-end
---Ok I know i'm dumb i can't manage many esps at one function it will cost me time to understand iy esp sorry
-function ESPF(object,text,color)
-   if object and not object.Handle:FindFirstChild("Esp") and getgenv().FruitESP then
-      local ColorText;
-      ColorText = Color3.new(255, 0, 0)
-      local BillboardGui = Instance.new("BillboardGui")
-      local TextLabel = Instance.new("TextLabel")
-      BillboardGui.Adornee = object.Handle
-      BillboardGui.Name = "Esp"
-      BillboardGui.Parent = object.Handle
-      BillboardGui.Size = UDim2.new(0, 100, 0, 150)
-      BillboardGui.StudsOffset = Vector3.new(0, 1, 0)
-      BillboardGui.AlwaysOnTop = true
-      TextLabel.Parent = BillboardGui
-      TextLabel.BackgroundTransparency = 1
-      TextLabel.Position = UDim2.new(0, 0, 0, -50)
-      TextLabel.Size = UDim2.new(0, 100, 0, 100)
-      TextLabel.Font = Enum.Font.SourceSansSemibold
-      TextLabel.TextSize = 20
-      TextLabel.TextColor3 = ColorText
-      TextLabel.TextStrokeTransparency = 0
-      TextLabel.TextYAlignment = Enum.TextYAlignment.Bottom
-      TextLabel.Text = 'Name: '..object.Name
-      TextLabel.ZIndex = 10
-      local function espLoop()
-         pcall(function()
-            if not getgenv().FruitESP then
-               BillboardGui:Destroy()
-               espLoopFunc:Disconnect()
-            else
-               local pos = math.floor((getRoot(Players.LocalPlayer.Character).Position - object.Handle.Position).magnitude)
-               TextLabel.Text = object.Name..' | Dist: '..pos
-            end
-         end)
-      end
-      espLoopFunc = game:GetService("RunService").RenderStepped:Connect(espLoop)
-      
-   end
-end
-function ESPI(object,text,color)
-   if object and not object.Handle:FindFirstChild("Esp") and getgenv().FruitESP then
-      local ColorText;
-      ColorText = Color3.new(255, 0, 0)
-      local BillboardGui = Instance.new("BillboardGui")
-      local TextLabel = Instance.new("TextLabel")
-      BillboardGui.Adornee = object.Handle
-      BillboardGui.Name = "Esp"
-      BillboardGui.Parent = object.Handle
-      BillboardGui.Size = UDim2.new(0, 100, 0, 150)
-      BillboardGui.StudsOffset = Vector3.new(0, 1, 0)
-      BillboardGui.AlwaysOnTop = true
-      TextLabel.Parent = BillboardGui
-      TextLabel.BackgroundTransparency = 1
-      TextLabel.Position = UDim2.new(0, 0, 0, -50)
-      TextLabel.Size = UDim2.new(0, 100, 0, 100)
-      TextLabel.Font = Enum.Font.SourceSansSemibold
-      TextLabel.TextSize = 20
-      TextLabel.TextColor3 = ColorText
-      TextLabel.TextStrokeTransparency = 0
-      TextLabel.TextYAlignment = Enum.TextYAlignment.Bottom
-      TextLabel.Text = 'Name: '..object.Name
-      TextLabel.ZIndex = 10
-      local function espLoop()
-         if object then
-            if not getgenv().FruitESP then
-               BillboardGui:Destroy()
-               espLoopFunc:Disconnect()
-            else
-               local pos = math.floor((getRoot(Players.LocalPlayer.Character).Position - object.Handle.Position).magnitude)
-               TextLabel.Text = object.Name..' | Dist: '..pos
-            end
-         end
-      end
-      espLoopFunc = game:GetService("RunService").RenderStepped:Connect(espLoop)
-      
-   end
-end
-function ESPO(object,text,color)
-   if not object:FindFirstChild("Esp") then
-      if getgenv().ChestESP or getgenv().FlowersESP then
-         local ColorText;
-         if object.Name == "Chest1" then
-            ColorText = Color3.new(0, 50, 0)
-         elseif object.Name == "Chest2" then
-            ColorText = Color3.new(255, 198, 0)
-         elseif object.Name == "Chest3" then
-            ColorText = Color3.new(0, 0, 255)
-         elseif object.Name == "Flower1" then
-            ColorText = Color3.new(0, 0, 255)
-         elseif object.Name == "Flower2" then
-            ColorText = Color3.new(255, 0, 0)
-         end
-         local BillboardGui = Instance.new("BillboardGui")
-         local TextLabel = Instance.new("TextLabel")
-         BillboardGui.Adornee = object
-         BillboardGui.Name = "Esp"
-         BillboardGui.Parent = object
-         BillboardGui.Size = UDim2.new(0, 100, 0, 150)
-         BillboardGui.StudsOffset = Vector3.new(0, 1, 0)
-         BillboardGui.AlwaysOnTop = true
-         TextLabel.Parent = BillboardGui
-         TextLabel.BackgroundTransparency = 1
-         TextLabel.Position = UDim2.new(0, 0, 0, -50)
-         TextLabel.Size = UDim2.new(0, 100, 0, 100)
-         TextLabel.Font = Enum.Font.SourceSansSemibold
-         TextLabel.TextSize = 20
-         TextLabel.TextColor3 = ColorText
-         TextLabel.TextStrokeTransparency = 0
-         TextLabel.TextYAlignment = Enum.TextYAlignment.Bottom
-         TextLabel.Text = 'Name: '..object.Name
-         TextLabel.ZIndex = 10
-         local function espLoop()
-            if object then
-               if getgenv().ChestESP or  getgenv().FlowersESP then
-                  local pos = math.floor((getRoot(Players.LocalPlayer.Character).Position - object.Position).magnitude)
-                  TextLabel.Text = object.Name..' | Dist: '..pos
-               else
-                  espLoopFunc:Disconnect()
-                  
-               end
-            end
-         end
-         espLoopFunc = game:GetService("RunService").RenderStepped:Connect(espLoop)
-      end
-   end
-end
-Players.PlayerRemoving:Connect(function(player)
-	if ESPenabled or CHMSenabled or COREGUI:FindFirstChild(player.Name..'_LC') then
-		for i,v in pairs(COREGUI:GetChildren()) do
-			if v.Name == player.Name..'_ESP' or v.Name == player.Name..'_LC' or v.Name == player.Name..'_CHMS' then
-				v:Destroy()
-			end
-		end
-	end
-end)
-function ESPMob(object)
-   if not object.Head:FindFirstChild("Esp") and getgenv().MobESP then
-      local ColorText;
-      ColorText = Color3.new(1, 1, 1)
-      local BillboardGui = Instance.new("BillboardGui")
-      local TextLabel = Instance.new("TextLabel")
-      BillboardGui.Adornee = object.Head
-      BillboardGui.Name = "Esp"
-      BillboardGui.Parent = object.Head
-      BillboardGui.Size = UDim2.new(0, 100, 0, 150)
-      BillboardGui.StudsOffset = Vector3.new(0, 1, 0)
-      BillboardGui.AlwaysOnTop = true
-      TextLabel.Parent = BillboardGui
-      TextLabel.BackgroundTransparency = 1
-      TextLabel.Position = UDim2.new(0, 0, 0, -50)
-      TextLabel.Size = UDim2.new(0, 100, 0, 100)
-      TextLabel.Font = Enum.Font.SourceSansSemibold
-      TextLabel.TextSize = 20
-      TextLabel.TextColor3 = ColorText
-      TextLabel.TextStrokeTransparency = 0
-      TextLabel.TextYAlignment = Enum.TextYAlignment.Bottom
-      TextLabel.Text = 'Name: '..object.Name
-      TextLabel.ZIndex = 10
-      local function espLoop()
-         if object then
-            if not getgenv().MobESP  then
-               espLoopFunc:Disconnect()
-            else
-               local pos = math.floor((getRoot(Players.LocalPlayer.Character).Position - object.HumanoidRootPart.Position).magnitude)
-               TextLabel.Text = object.Name..' | Hp: '..round(object:FindFirstChildOfClass('Humanoid').Health, 1)..' | Dist: '..pos
-            end
-         end
-      end
-      espLoopFunc = game:GetService("RunService").RenderStepped:Connect(espLoop)
-      
-   end
-end
-function ESP(plr)
-	task.spawn(function()
-		for i,v in pairs(COREGUI:GetChildren()) do
-			if v.Name == plr.Name..'_ESP' then
-				v:Destroy()
-			end
-		end
-		wait()
-		if plr.Character and plr.Name ~= Players.LocalPlayer.Name and not COREGUI:FindFirstChild(plr.Name..'_ESP') then
-			local ESPholder = Instance.new("Folder")
-			ESPholder.Name = plr.Name..'_ESP'
-			ESPholder.Parent = COREGUI
-			repeat wait(1) until plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChildOfClass("Humanoid")
-			for b,n in pairs (plr.Character:GetChildren()) do
-				if (n:IsA("BasePart") and n.Name ~= "HumanoidRootPart") then
-					local a = Instance.new("BoxHandleAdornment")
-					a.Name = plr.Name
-					a.Parent = ESPholder
-					a.Adornee = n
-					a.AlwaysOnTop = true
-					a.ZIndex = 10
-					a.Size = n.Size
-					a.Transparency = 0.3
-					a.Color = plr.TeamColor
-				end
-			end
-			if plr.Character and plr.Character:FindFirstChild('Head') then
-				local BillboardGui = Instance.new("BillboardGui")
-				local TextLabel = Instance.new("TextLabel")
-				BillboardGui.Adornee = plr.Character.Head
-				BillboardGui.Name = plr.Name
-				BillboardGui.Parent = ESPholder
-				BillboardGui.Size = UDim2.new(0, 100, 0, 150)
-				BillboardGui.StudsOffset = Vector3.new(0, 1, 0)
-				BillboardGui.AlwaysOnTop = true
-				TextLabel.Parent = BillboardGui
-				TextLabel.BackgroundTransparency = 1
-				TextLabel.Position = UDim2.new(0, 0, 0, -50)
-				TextLabel.Size = UDim2.new(0, 100, 0, 100)
-				TextLabel.Font = Enum.Font.SourceSansSemibold
-				TextLabel.TextSize = 20
-				TextLabel.TextColor3 = Color3.new(1, 1, 1)
-				TextLabel.TextStrokeTransparency = 0
-				TextLabel.TextYAlignment = Enum.TextYAlignment.Bottom
-				TextLabel.Text = 'Name: '..plr.Name
-				TextLabel.ZIndex = 10
-				local espLoopFunc
-				local teamChange
-				local addedFunc
-            local lvchange
-				addedFunc = plr.CharacterAdded:Connect(function()
-					if ESPenabled then
-                  print("Esped Added")
-						espLoopFunc:Disconnect()
-						teamChange:Disconnect()
-                  lvchange:Disconnect()
-						ESPholder:Destroy()
-						repeat wait(1) until getRoot(plr.Character) and plr.Character:FindFirstChildOfClass("Humanoid")
-						ESP(plr)
-						addedFunc:Disconnect()
-					else
-                  lvchange:Disconnect()
-						teamChange:Disconnect()
-						addedFunc:Disconnect()
-					end
-				end)
-				teamChange = plr:GetPropertyChangedSignal("TeamColor"):Connect(function()
-					if ESPenabled then
-						espLoopFunc:Disconnect()
-						addedFunc:Disconnect()
-                  lvchange:Disconnect()
-						ESPholder:Destroy()
-						repeat wait(1) until getRoot(plr.Character) and plr.Character:FindFirstChildOfClass("Humanoid")
-						ESP(plr)
-						teamChange:Disconnect()
-					else
-						teamChange:Disconnect()
-					end
-				end)
-            lvchange = plr.Data.Level.Changed:Connect(function()
-               if ESPenabled then
-						espLoopFunc:Disconnect()
-						addedFunc:Disconnect()
-                  teamChange:Disconnect()
-						ESPholder:Destroy()
-						repeat wait(1) until getRoot(plr.Character) and plr.Character:FindFirstChildOfClass("Humanoid")
-						ESP(plr)
-                  lvchange:Disconnect()
-					else
-						lvchange:Disconnect()
-					end
-            end)
-				local function espLoop()
-					if COREGUI:FindFirstChild(plr.Name..'_ESP') then
-						if plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChildOfClass("Humanoid") and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
-							local pos = math.floor((getRoot(Players.LocalPlayer.Character).Position - getRoot(plr.Character).Position).magnitude)
-							TextLabel.Text = plr.Name..' | Hp: '..round(plr.Character:FindFirstChildOfClass('Humanoid').Health, 1)..' | Dist: '..pos..' | Lv: '..plr.Data.Level.Value
-						end
-					else
-						teamChange:Disconnect()
-						addedFunc:Disconnect()
-						espLoopFunc:Disconnect()
-                  lvchange:Disconnect()
-					end
-				end
-				espLoopFunc = game:GetService("RunService").RenderStepped:Connect(espLoop)
-			end
-		end
-	end)
-end
-
-
-function getRoot(char)
-	local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or char:FindFirstChild('UpperTorso')
-	return rootPart
-end
-function sFLY(vfly)
-   QEfly = true
-  repeat wait() until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and getRoot(game.Players.LocalPlayer.Character) and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-  repeat wait() until Mouse
-  if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
-
-  local T = getRoot(game.Players.LocalPlayer.Character)
-  local CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
-  local lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
-  local SPEED = 50
-
-  local function FLY()
-     getgenv().FLYING = true
-     local BG = Instance.new('BodyGyro')
-     local BV = Instance.new('BodyVelocity')
-     BG.P = 9e4
-     BG.Parent = T
-     BV.Parent = T
-     BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
-     BG.cframe = T.CFrame
-     BV.velocity = Vector3.new(0, 0, 0)
-     BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
-     task.spawn(function()
-        repeat wait()
-           if not vfly and game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
-              game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = true
-           end
-           if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0 then
-              SPEED = 50
-           elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0) and SPEED ~= 0 then
-              SPEED = 0
-           end
-           if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 or (CONTROL.Q + CONTROL.E) ~= 0 then
-              BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
-              lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
-           elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and (CONTROL.Q + CONTROL.E) == 0 and SPEED ~= 0 then
-              BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
-           else
-              BV.velocity = Vector3.new(0, 0, 0)
-           end
-           BG.cframe = workspace.CurrentCamera.CoordinateFrame
-        until not getgenv().FLYING
-        CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
-        lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
-        SPEED = 0
-        BG:Destroy()
-        BV:Destroy()
-        if game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
-           game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
-        end
-     end)
-  end
-  flyKeyDown = Mouse.KeyDown:Connect(function(KEY)
-     if KEY:lower() == 'w' then
-        CONTROL.F = (vfly and vehicleflyspeed or getgenv().FlySpeed)
-     elseif KEY:lower() == 's' then
-        CONTROL.B = - (vfly and vehicleflyspeed or getgenv().FlySpeed)
-     elseif KEY:lower() == 'a' then
-        CONTROL.L = - (vfly and vehicleflyspeed or getgenv().FlySpeed)
-     elseif KEY:lower() == 'd' then 
-        CONTROL.R = (vfly and vehicleflyspeed or getgenv().FlySpeed)
-     elseif QEfly and KEY:lower() == 'e' then
-        CONTROL.Q = (vfly and vehicleflyspeed or getgenv().FlySpeed)*2
-     elseif QEfly and KEY:lower() == 'q' then
-        CONTROL.E = -(vfly and vehicleflyspeed or getgenv().FlySpeed)*2
-     end
-     pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Track end)
-  end)
-  flyKeyUp = Mouse.KeyUp:Connect(function(KEY)
-     if KEY:lower() == 'w' then
-        CONTROL.F = 0
-     elseif KEY:lower() == 's' then
-        CONTROL.B = 0
-     elseif KEY:lower() == 'a' then
-        CONTROL.L = 0
-     elseif KEY:lower() == 'd' then
-        CONTROL.R = 0
-     elseif KEY:lower() == 'e' then
-        CONTROL.Q = 0
-     elseif KEY:lower() == 'q' then
-        CONTROL.E = 0
-     end
-  end)
-  FLY()
-end
-local function refreshPlayers()
-  table.clear(PlayerTable)
-  for i,v in pairs(game.Players:GetChildren()) do
-      if not table.find(PlayerTable, v.Name) then
-          table.insert(PlayerTable, v.Name)
-     
-      end
-  end
-end
-local function refreshBosses()
-   table.clear(BossesTable)
-   for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
-      if string.find(v.Name, "Boss") then
-         table.insert(BossesTable, v.Name)
-      end
-   end
- end
-
 function TPSpecificPlace()
    if SecondSea then
       if HighestLvToFarm == 1250 or HighestLvToFarm == 1275 or HighestLvToFarm == 1300 or HighestLvToFarm == 1325 then
@@ -2679,78 +2221,61 @@ elseif FirstSea then
 	TeleportSection2:addButton("Middle Town", function()
 		DoTween(CFrame.new(-655.824158, 7.88708115, 1436.67908),getgenv().TweenSpeedTeleportPlace)
 	end)
-
 	TeleportSection2:addButton("Jungle", function()
 		DoTween(CFrame.new(-1334.1259765625, 11.852984428406, 502.03717041016),getgenv().TweenSpeedTeleportPlace)
 	end)
    TeleportSection2:addButton("Shank's Room", function()
 		DoTween(CFrame.new(-1455.4440917969, 29.851997375488, -37.440139770508),getgenv().TweenSpeedTeleportPlace)
 	end)
-
 	TeleportSection2:addButton("Pirate Village", function()
 		DoTween(CFrame.new(-1187.3435058594, 4.7515587806702, 3809.2456054688),getgenv().TweenSpeedTeleportPlace)
 	end)
-
 	TeleportSection2:addButton("Desert", function()
 		DoTween(CFrame.new(1094.14587, 6.47350502, 4192.88721),getgenv().TweenSpeedTeleportPlace)
 	end)
 	TeleportSection2:addButton("Frozen Village", function()
 		DoTween(CFrame.new(1112.4229736328, 7.3036189079285, -1159.3383789062),getgenv().TweenSpeedTeleportPlace)
 	end)
-
 	TeleportSection2:addButton("Marine Fortress", function()
 		DoTween(CFrame.new(-4817.0161132812, 20.651899337769, 4368.0639648438),getgenv().TweenSpeedTeleportPlace)
 	end)
-
    TeleportSection2:addButton("Mob Leader Place", function()
 		DoTween(CFrame.new(-2839.7548828125, 7.3262448310852, 5319.9428710938),getgenv().TweenSpeedTeleportPlace)
 	end)
-   
 	TeleportSection2:addButton("Prison", function()
 		DoTween(CFrame.new(4874.8125, 5.6519904136658, 735.57012939453),getgenv().TweenSpeedTeleportPlace)
 	end)
-
 	TeleportSection2:addButton("Colosseum", function()
 		DoTween(CFrame.new(-1423.5014648438, 7.2882599830627, -2798.2961425781),getgenv().TweenSpeedTeleportPlace)
 	end)
-
 	TeleportSection2:addButton("Skylands", function()
 		DoTween(CFrame.new(-4970.21875, 717.707275, -2622.35449),getgenv().TweenSpeedTeleportPlace)
 	end)
 	TeleportSection2:addButton("SkyArea1", function()
 		DoTween(CFrame.new(-4731.9462890625, 845.27691650391, -1933.5628662109),getgenv().TweenSpeedTeleportPlace)
 	end)
-
 	TeleportSection2:addButton("SkyArea2", function()
 		DoTween(CFrame.new(-7884.7309570312, 5545.509765625, -383.34613037109),getgenv().TweenSpeedTeleportPlace)
 	end)
    TeleportSection2:addButton("Sky Secret Temple", function()
 		DoTween(CFrame.new(-8018.662109375, 5609.9936523438, -1979.3544921875),getgenv().TweenSpeedTeleportPlace)
 	end)
-   
-
 	TeleportSection2:addButton("Magma Village", function()
 		DoTween(CFrame.new(-5231.75879, 8.61593437, 8467.87695),getgenv().TweenSpeedTeleportPlace)
 	end)
-   
    TeleportSection2:addButton("UnderWater City Gate", function()
 		DoTween(CFrame.new(3853.0385742188, 5.3731479644775, -1919.4447021484),getgenv().TweenSpeedTeleportPlace)
 	end)
-
 	TeleportSection2:addButton("UnderWater City", function()
 		DoTween(CFrame.new(61092.36328125, 18.471633911133, 1711.1674804688),getgenv().TweenSpeedTeleportPlace)
 	end)
-
 	TeleportSection2:addButton("Fountain City", function()
 		DoTween(CFrame.new(5053.0297851562, 1.5012743473053, 4054.8439941406),getgenv().TweenSpeedTeleportPlace)
 	end)
-
 elseif ThirdSea then
-
    TeleportSection2:addButton("Port Town", function()
       DoTween(CFrame.new(-447.46743774414, 6.7299399375916, 5306.3686523438),getgenv().TweenSpeedTeleportPlace)
 	end)
-
    TeleportSection2:addButton("Hydra Island", function()
       DoTween(CFrame.new(5278.9213867188, 602.04351806641, 360.77795410156),getgenv().TweenSpeedTeleportPlace)
 	end)
@@ -2760,12 +2285,9 @@ elseif ThirdSea then
    TeleportSection2:addButton("Great Tree", function()
       DoTween(CFrame.new(2253.0600585938, 24.144220352173, -6405.6694335938),getgenv().TweenSpeedTeleportPlace)
 	end)
-
-
    TeleportSection2:addButton("Castle on the sea", function()
 		DoTween(CFrame.new(-5026.3584, 323.515503, -2996.28442),getgenv().TweenSpeedTeleportPlace)
 	end)
-
    TeleportSection2:addButton("Pineapple Town", function()
       DoTween(CFrame.new(-11363.5166, 362.381439, -10327.9727),getgenv().TweenSpeedTeleportPlace)
 	end)
@@ -2778,7 +2300,6 @@ elseif ThirdSea then
    TeleportSection2:addButton("Floating Turtle", function()
 		DoTween(CFrame.new(-12001.6152, 1707.39319, -8789.03711),getgenv().TweenSpeedTeleportPlace)
 	end)
-   
    TeleportSection2:addButton("Beautiful Pirate Gate", function()
 		DoTween(CFrame.new(-11990.901367188, 331.80770874023, -8845.5888671875),getgenv().TweenSpeedTeleportPlace)
 	end)
@@ -2800,12 +2321,9 @@ elseif ThirdSea then
    TeleportSection2:addButton("Ice Cream Island", function()
 		DoTween(CFrame.new(-851.74633789062, 65.819496154785, -10932.150390625),getgenv().TweenSpeedTeleportPlace)
 	end)
-   
-
 end
 local TeleportSection3 = page:addSection("Npc")
 if FirstSea then
-
    TeleportSection3:addButton("Usoap", function()
       DoTween(CFrame.new(-8036.05859375, 5756.033203125, -1934.3215332031),getgenv().TweenSpeedTeleportPlace)
    end)
@@ -2851,7 +2369,6 @@ elseif SecondSea then
    TeleportSection3:addButton("Greedy Elf(Candy For Fragments)", function()
       DoTween(CFrame.new(-336.14483642578, 72.959754943848, 389.41271972656),getgenv().TweenSpeedTeleportPlace)
    end)
-   
    TeleportSection3:addButton("Manager", function()
       DoTween(CFrame.new(-388.47613525391, 73.030082702637, 332.55465698242),getgenv().TweenSpeedTeleportPlace)
    end)
@@ -2864,7 +2381,6 @@ elseif SecondSea then
    TeleportSection3:addButton("Mysterious Man", function()
       DoTween(CFrame.new(2570.8295898438, 1622.2680664062, -3745.8859863281),getgenv().TweenSpeedTeleportPlace)
    end)
-
 elseif ThirdSea then
    TeleportSection3:addButton("Fruit Inventory", function()
       DoTween(CFrame.new(-12528.346679688, 336.91436767578, -7447.4794921875),getgenv().TweenSpeedTeleportPlace)
@@ -2879,7 +2395,6 @@ elseif ThirdSea then
    TeleportSection3:addButton("Reset Stats NPC", function()
       DoTween(CFrame.new(-5143.0615234375, 315.41546630859, -3162.0434570312),getgenv().TweenSpeedTeleportPlace)
    end)
-   
    TeleportSection3:addButton("Race Reroll NPC", function()
       DoTween(CFrame.new(-12494.5234375, 336.91436767578, -7563.8916015625),getgenv().TweenSpeedTeleportPlace)
    end)
@@ -2892,7 +2407,6 @@ elseif ThirdSea then
    TeleportSection3:addButton("Bone Trading NPC", function()
       DoTween(CFrame.new(-8724.8076171875, 142.32157897949, 6247.6552734375),getgenv().TweenSpeedTeleportPlace)
    end)
-   
    TeleportSection3:addButton("Hungry Man", function()
       DoTween(CFrame.new(-10918.0078125, 624.17694091797, -10267.389648438),getgenv().TweenSpeedTeleportPlace)
    end)
@@ -2911,10 +2425,7 @@ elseif ThirdSea then
    TeleportSection3:addButton("Pirate Recruiter", function()
       DoTween(CFrame.new(-12259.263671875, 332.37814331055, -7396.05859375),getgenv().TweenSpeedTeleportPlace)
    end) 
-   
 end
-
-
 AutoWeapon:addToggle("Fast Attack", nil, function(value)
     local Fast = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
     local CameraShaker = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework.CameraShaker)
@@ -2929,10 +2440,7 @@ AutoWeapon:addToggle("Fast Attack", nil, function(value)
     end)
     end)
 end)
-
-
 AutoWeapon:addToggle("Auto Buso", nil, function(value)
-
 _G.AutoBuso = value
 while _G.AutoBuso do wait()
    if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
@@ -2942,26 +2450,7 @@ while _G.AutoBuso do wait()
       game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
    end
 end
-
 end)
-
-AutoWeapon:addToggle("Auto Observation", nil, function(value)
-
-_G.AutoObservation = value
-   while _G.AutoObservation do
-      wait()
-      if game.Players.LocalPlayer.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
-      else wait(1)
-         VirtualUser:CaptureController()
-         VirtualUser:SetKeyDown('0x65')
-         wait(2)
-         VirtualUser:SetKeyUp('0x65')
-      end
-   end
-
-end)
-
-
 AutoFarm:addToggle("Auto New World",getgenv().AutoSecondSea,function(boolen)
     getgenv().AutoSecondSea = boolen
     while getgenv().AutoSecondSea do
@@ -3028,40 +2517,4 @@ AutoFarm:addToggle("Auto New World",getgenv().AutoSecondSea,function(boolen)
           end
        end
     end
-end)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-local theme = venyx:addPage("Setting", 6942070576)
-local colors = theme:addSection("Setting GUI")
-
-colors:addButton("Delete Ui",function()
-   local ui = game:GetService("CoreGui"):FindFirstChild("Maximum Hub | Blox Fruits")
-   if ui then
-      ui:Destroy()
-   end
 end)
